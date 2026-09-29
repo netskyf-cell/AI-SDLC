@@ -12,7 +12,8 @@ Le playbook AI-Native SDLC d’Anthropic structure le cycle de développement en
 
 La phase Plan ouvre le cycle en précisant le changement souhaité. Elle repose sur un seul play, *Capture as intent*. Il recommande de consigner l’intention dans `intent.md` avant la conception. Le document décrit ce qui est voulu, pourquoi et sous quelles contraintes. Cette intention peut venir d’une idée, d’un ticket déjà déposé ou d’un incident détecté pendant la phase Maintain. Le Product Owner décide si elle permet d’engager la phase Design.
 
-La phase Plan en détail
+![La phase Plan en détail](img/plan-ce-que-plan-produit-01.png)  
+*La phase Plan en détail*
 
 | Cycle traditionnel | Cycle AI-native |
 | --- | --- |
@@ -80,7 +81,7 @@ Prenez le rôle du Platform Engineer. Si vous n’avez pas de compte, ouvrez [gi
 
 Suivez les vérifications demandées par GitHub, puis validez votre adresse avec l’e-mail reçu. Poursuivez avec « Créez le repository `mars-rover` ».
 
-GitHubgithub.com/signup
+![Créez votre compte GitHub.](img/plan-creer-depot-github-01.png)
 
 02
 
@@ -88,7 +89,7 @@ GitHubgithub.com/signup
 
 Si vous avez déjà un compte, ouvrez [github.com/login](https://github.com/login). Connectez-vous avec votre méthode habituelle. Poursuivez avec « Créez le repository `mars-rover` ».
 
-GitHubgithub.com/login
+![Connectez-vous à votre compte GitHub.](img/plan-creer-depot-github-02.png)
 
 03
 
@@ -96,7 +97,7 @@ GitHubgithub.com/login
 
 Ouvrez [github.com/new](https://github.com/new). Remplissez le formulaire avec les paramètres indiqués ci-dessous, puis cliquez sur Create repository.
 
-GitHubgithub.com/new
+![Créez le repository mars-rover .](img/plan-creer-depot-github-03.png)
 
 04
 
@@ -104,7 +105,7 @@ GitHubgithub.com/new
 
 Le repository `mars-rover` doit être privé, sur la branche `main`, avec les fichiers `.gitignore`, `LICENSE` et `README.md`.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover
+![Vérifiez le repository créé.](img/plan-creer-depot-github-04.png)
 
 Application en entreprise
 
@@ -140,7 +141,7 @@ Prendre le rôle du Platform Engineer et préparer une session Claude Code reli�
 
 Toujours dans le rôle du Platform Engineer, ouvrez [claude.ai/login](https://claude.ai/login). Utilisez la connexion par e-mail et saisissez l’adresse du compte Claude prévu pour l’atelier. Validez l’envoi du lien.
 
-Claudeclaude.ai/login
+![Connectez-vous à Claude.](img/plan-demarrer-claude-code-01.png)
 
 02
 
@@ -148,7 +149,7 @@ Claudeclaude.ai/login
 
 Dans votre messagerie, ouvrez le message Votre lien sécurisé vers Claude.ai est ici envoyé par Anthropic. Cliquez sur Se connecter.
 
-Messagerie
+![Validez votre connexion à Claude.](img/plan-demarrer-claude-code-02.png)
 
 Si le lien affiche un code, revenez dans l’onglet Claude. Cliquez sur Saisissez le code de vérification, recopiez le code et cliquez sur Vérifier l’adresse e-mail.
 
@@ -158,7 +159,7 @@ Si le lien affiche un code, revenez dans l’onglet Claude. Cliquez sur Saisisse
 
 Cliquez sur l’icône Code en haut de la barre latérale.
 
-Claudeclaude.ai/new
+![Ouvrez Claude Code.](img/plan-demarrer-claude-code-03.png)
 
 04
 
@@ -166,7 +167,7 @@ Claudeclaude.ai/new
 
 Sur son premier écran, Claude Code vous demande de connecter votre compte GitHub. Cliquez sur Se connecter à GitHub.
 
-Claude Codeclaude.ai/code/onboarding
+![Connectez Claude Code à GitHub.](img/plan-demarrer-claude-code-04.png)
 
 05
 
@@ -174,7 +175,7 @@ Claude Codeclaude.ai/code/onboarding
 
 Cliquez sur Authorize Claude.
 
-GitHubgithub.com/login/oauth/authorize
+![Autorisez Claude à accéder à GitHub.](img/plan-demarrer-claude-code-05.png)
 
 06
 
@@ -182,7 +183,7 @@ GitHubgithub.com/login/oauth/authorize
 
 Dans le formulaire Créez votre premier environnement cloud, remplacez le nom prérempli par `Mars Rover`. Gardez l’option De confiance sélectionnée pour permettre à Claude de télécharger les paquets depuis des sources vérifiées. Cliquez sur Créer & terminer.
 
-Claude Codeclaude.ai/code/onboarding
+![Créez l’environnement Mars Rover .](img/plan-demarrer-claude-code-06.png)
 
 07
 
@@ -190,7 +191,7 @@ Claude Codeclaude.ai/code/onboarding
 
 Ouvrez Sélectionner un dépôt… au-dessus du champ de message. Saisissez `mars-rover` dans la recherche, puis cliquez sur le repository.
 
-Claude Codeclaude.ai/code
+![Sélectionnez le repository mars-rover .](img/plan-demarrer-claude-code-07.png)
 
 08
 
@@ -198,7 +199,7 @@ Claude Codeclaude.ai/code
 
 L’environnement `Mars Rover`, le repository `mars-rover` et la branche `main` doivent apparaître au-dessus du champ de message.
 
-Claude Codeclaude.ai/code
+![Vérifiez la configuration de Claude Code.](img/plan-demarrer-claude-code-08.png)
 
 ---
 
@@ -242,7 +243,7 @@ Cliquez sur les trois points en haut à droite de la session, puis sur Fichiers.
 
 Envoyez `/reload-skills` dans la session Claude Code pour recharger les skills du repository.
 
-Claude Codeclaude.ai/code
+![Lancez /reload-skills .](img/plan-creer-skill-intent-01.png)
 
 03
 
@@ -250,7 +251,7 @@ Claude Codeclaude.ai/code
 
 Saisissez `/intent` dans la zone de message sans l’envoyer. Le menu de commandes doit proposer la skill `intent`.
 
-Claude Codeclaude.ai/code
+![Recherchez /intent .](img/plan-creer-skill-intent-02.png)
 
 La suggestion `intent` confirme que Claude Code reconnaît la skill.
 
@@ -288,7 +289,7 @@ Prendre le rôle de la personne à l’origine du besoin et préciser avec Claud
 
 Prenez le rôle de la personne à l’origine du besoin. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/plan-rediger-l-intention-01.png)
 
 02
 
@@ -313,7 +314,7 @@ Contraintes du simulateur
 - Il reste immobile lorsqu’un obstacle bloque son avancée.
 - La carte peut employer les symboles 🟩 et 🌳 ou les symboles 🟫 et 🪨.
 
-Claude Codeclaude.ai/code
+![Répondez aux questions de Claude.](img/plan-rediger-l-intention-02.png)
 
 04
 
@@ -321,7 +322,7 @@ Claude Codeclaude.ai/code
 
 Claude vous demande si vous voulez enregistrer le brouillon. Confirmez l’enregistrement dans la conversation. La skill crée d’abord une branche de travail, puis y écrit `intent/mars-rover/intent.md`. Claude s’arrête avant le commit et attend votre confirmation.
 
-Claude Codeclaude.ai/code
+![Créez le fichier.](img/plan-rediger-l-intention-03.png)
 
 05
 
@@ -329,7 +330,7 @@ Claude Codeclaude.ai/code
 
 Lorsque le contenu vous convient, répondez « Crée la PR » dans la conversation. Claude fait le commit du fichier et le push de la branche, puis affiche le numéro de la pull request soumise au Product Owner.
 
-Claude Codeclaude.ai/code
+![Proposez l'intention.](img/plan-rediger-l-intention-04.png)
 
 Application en entreprise
 
@@ -367,7 +368,7 @@ Prendre le rôle du Product Owner et décider si l’intention du simulateur per
 
 Prenez le rôle du Product Owner pour examiner l’intention proposée. Cliquez sur le numéro de la pull request affiché par Claude. GitHub affiche la page de la pull request.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/…
+![Ouvrez la pull request dans GitHub.](img/plan-trancher-l-acceptation-01.png)
 
 02
 
@@ -385,7 +386,7 @@ Décidez si l’intention permet d’engager la conception. Si vous demandez des
 
 Lorsque vous acceptez l’intention, revenez dans l’onglet Conversation. Descendez jusqu’au bouton Merge pull request, cliquez dessus, puis confirmez avec Confirm merge. Ce merge enregistre la décision du Product Owner et rend l’intention disponible dans `main` pour la phase Design.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/…
+![Acceptez l'intention.](img/plan-trancher-l-acceptation-02.png)
 
 Application en entreprise
 

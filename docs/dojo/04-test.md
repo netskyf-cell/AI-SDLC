@@ -14,7 +14,8 @@ La phase Build a produit le code du simulateur et ses premiers tests. La phase T
 
 Cette phase s’appuie sur deux plays. *Give Claude a feedback loop* donne à Claude un moyen de vérifier son propre travail avant qu’une personne le voie. *Continuous evals in CI* évalue ensuite le travail de l’agent chaque fois que sa configuration change.
 
-La phase Test en détail
+![La phase Test en détail](img/test-ce-que-test-produit-01.png)  
+*La phase Test en détail*
 
 Le play *Give Claude a feedback loop* du playbook recommande de donner à Claude des commandes qu’il peut lancer lui-même et de quoi juger leur résultat. L’Engineer vérifie les preuves obtenues et décide si le résultat est acceptable.
 
@@ -74,7 +75,7 @@ Prendre le rôle de l’Engineer pour créer les commandes de vérification, pui
 
 Prenez le rôle de l’Engineer pour équiper le harness de vérification. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche de build.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/test-equiper-le-harness-01.png)
 
 02
 
@@ -86,7 +87,7 @@ Demandez à Claude de rassembler les vérifications du projet derrière deux com
 
 Claude doit créer le `Makefile` et le fichier d’exemple, lancer les deux commandes et montrer leurs sorties, avec le code de sortie de chacune. Il indique ensuite le commit créé et le push de la branche.
 
-Claude Codeclaude.ai/code
+![Créez les commandes de vérification.](img/test-equiper-le-harness-02.png)
 
 03
 
@@ -138,7 +139,7 @@ La skill rejoint la branche de build, avec le hook et les commandes qu’elle ap
 
 Envoyez `/reload-skills` dans la session Claude Code pour recharger les skills du repository.
 
-Claude Codeclaude.ai/code
+![Lancez /reload-skills .](img/test-equiper-le-harness-03.png)
 
 08
 
@@ -146,7 +147,7 @@ Claude Codeclaude.ai/code
 
 Saisissez `/fix` dans la zone de message sans l’envoyer. Le menu de commandes doit proposer la skill `fix`.
 
-Claude Codeclaude.ai/code
+![Recherchez /fix .](img/test-equiper-le-harness-04.png)
 
 La suggestion `fix` confirme que Claude Code reconnaît la skill. Un `SKILL.md` mal formé n’apparaîtrait pas ici, et le défaut se découvrirait à la dernière leçon.
 
@@ -182,7 +183,7 @@ Prendre le rôle de l’Engineer et demander à Claude de créer un bug dans le 
 
 Prenez le rôle de l’Engineer pour créer le bug d’exercice. Cliquez sur Nouveau dans la barre latérale de Claude Code. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche de build.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/test-creer-un-bug-01.png)
 
 02
 
@@ -224,7 +225,7 @@ Prendre le rôle de l’Engineer et lancer la skill `fix`, en validant chacun de
 
 Prenez le rôle de l’Engineer pour corriger le bug. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche de build.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/test-corriger-un-bug-01.png)
 
 02
 

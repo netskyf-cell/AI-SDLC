@@ -30,7 +30,7 @@ Prendre le rôle du Platform Engineer et rendre au compte de l’atelier son ét
 
 Dans Claude Code, cliquez sur l’environnement `Mars Rover` au-dessus du champ de message, puis ouvrez Cloud. Le menu liste vos environnements. Survolez `Mars Rover`, puis cliquez sur son icône de réglages.
 
-Claude Codeclaude.ai/code
+![Ouvrez les réglages de l’environnement.](img/conclusion-remise-a-zero-01.png)
 
 02
 
@@ -38,7 +38,7 @@ Claude Codeclaude.ai/code
 
 La fenêtre Modifier l’environnement cloud affiche le nom de l’environnement et son accès réseau. Cliquez sur Archiver, puis confirmez dans la demande qui s’ouvre.
 
-Claude Codeclaude.ai/code
+![Archivez l’environnement.](img/conclusion-remise-a-zero-02.png)
 
 03
 
@@ -46,7 +46,7 @@ Claude Codeclaude.ai/code
 
 Dans la barre latérale, cliquez sur Personnaliser, puis sur Connecteurs en haut de la page. Dans le fil, cliquez sur Connecteurs, à gauche de Répertoire. La liste de vos connecteurs s’affiche. Sur la ligne Intégration GitHub, cliquez sur le nom du connecteur.
 
-Claude Codeclaude.ai/customize/connectors
+![Ouvrez la fiche du connecteur GitHub.](img/conclusion-remise-a-zero-03.png)
 
 04
 
@@ -54,7 +54,7 @@ Claude Codeclaude.ai/customize/connectors
 
 La fiche du connecteur s’ouvre. Cliquez sur Déconnecter. Claude perd l’accès à vos repositories et le repository `mars-rover` reste sur votre compte GitHub, avec tout ce que le dojo y a enregistré.
 
-Claude Codeclaude.ai/customize/connectors/integration-github
+![Déconnectez GitHub.](img/conclusion-remise-a-zero-04.png)
 
 ---
 

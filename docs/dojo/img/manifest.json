@@ -1,0 +1,146 @@
+{
+ "course": [
+  "course-01.png"
+ ],
+ "plan-ce-que-plan-produit": [
+  "plan-ce-que-plan-produit-01.png"
+ ],
+ "plan-creer-depot-github": [
+  "plan-creer-depot-github-01.png",
+  "plan-creer-depot-github-02.png",
+  "plan-creer-depot-github-03.png",
+  "plan-creer-depot-github-04.png"
+ ],
+ "plan-demarrer-claude-code": [
+  "plan-demarrer-claude-code-01.png",
+  "plan-demarrer-claude-code-02.png",
+  "plan-demarrer-claude-code-03.png",
+  "plan-demarrer-claude-code-04.png",
+  "plan-demarrer-claude-code-05.png",
+  "plan-demarrer-claude-code-06.png",
+  "plan-demarrer-claude-code-07.png",
+  "plan-demarrer-claude-code-08.png"
+ ],
+ "plan-creer-skill-intent": [
+  "plan-creer-skill-intent-01.png",
+  "plan-creer-skill-intent-02.png"
+ ],
+ "plan-rediger-l-intention": [
+  "plan-rediger-l-intention-01.png",
+  "plan-rediger-l-intention-02.png",
+  "plan-rediger-l-intention-03.png",
+  "plan-rediger-l-intention-04.png"
+ ],
+ "plan-trancher-l-acceptation": [
+  "plan-trancher-l-acceptation-01.png",
+  "plan-trancher-l-acceptation-02.png"
+ ],
+ "design-ce-que-design-produit": [
+  "design-ce-que-design-produit-01.png"
+ ],
+ "design-equiper-le-harness": [
+  "design-equiper-le-harness-01.png",
+  "design-equiper-le-harness-02.png",
+  "design-equiper-le-harness-03.png"
+ ],
+ "design-faire-ecrire-la-spec": [
+  "design-faire-ecrire-la-spec-01.png",
+  "design-faire-ecrire-la-spec-02.png",
+  "design-faire-ecrire-la-spec-03.png",
+  "design-faire-ecrire-la-spec-04.png",
+  "design-faire-ecrire-la-spec-05.png",
+  "design-faire-ecrire-la-spec-06.png"
+ ],
+ "design-soumettre-la-spec": [
+  "design-soumettre-la-spec-01.png",
+  "design-soumettre-la-spec-02.png",
+  "design-soumettre-la-spec-03.png"
+ ],
+ "build-ce-que-build-produit": [
+  "build-ce-que-build-produit-01.png"
+ ],
+ "build-equiper-le-harness": [
+  "build-equiper-le-harness-01.png",
+  "build-equiper-le-harness-02.png",
+  "build-equiper-le-harness-03.png",
+  "build-equiper-le-harness-04.png",
+  "build-equiper-le-harness-05.png",
+  "build-equiper-le-harness-06.png"
+ ],
+ "build-faire-ecrire-le-plan": [
+  "build-faire-ecrire-le-plan-01.png",
+  "build-faire-ecrire-le-plan-02.png",
+  "build-faire-ecrire-le-plan-03.png",
+  "build-faire-ecrire-le-plan-04.png"
+ ],
+ "build-implementer": [
+  "build-implementer-01.png",
+  "build-implementer-02.png"
+ ],
+ "test-ce-que-test-produit": [
+  "test-ce-que-test-produit-01.png"
+ ],
+ "test-equiper-le-harness": [
+  "test-equiper-le-harness-01.png",
+  "test-equiper-le-harness-02.png",
+  "test-equiper-le-harness-03.png",
+  "test-equiper-le-harness-04.png"
+ ],
+ "test-creer-un-bug": [
+  "test-creer-un-bug-01.png"
+ ],
+ "test-corriger-un-bug": [
+  "test-corriger-un-bug-01.png"
+ ],
+ "deploy-ce-que-deploy-produit": [
+  "deploy-ce-que-deploy-produit-01.png"
+ ],
+ "deploy-equiper-le-harness": [
+  "deploy-equiper-le-harness-01.png",
+  "deploy-equiper-le-harness-02.png",
+  "deploy-equiper-le-harness-03.png",
+  "deploy-equiper-le-harness-04.png",
+  "deploy-equiper-le-harness-05.png",
+  "deploy-equiper-le-harness-06.png"
+ ],
+ "deploy-revoir-la-pull-request": [
+  "deploy-revoir-la-pull-request-01.png",
+  "deploy-revoir-la-pull-request-02.png",
+  "deploy-revoir-la-pull-request-03.png"
+ ],
+ "deploy-accepter-le-build": [
+  "deploy-accepter-le-build-01.png",
+  "deploy-accepter-le-build-02.png",
+  "deploy-accepter-le-build-03.png"
+ ],
+ "deploy-preparer-la-livraison": [
+  "deploy-preparer-la-livraison-01.png",
+  "deploy-preparer-la-livraison-02.png",
+  "deploy-preparer-la-livraison-03.png"
+ ],
+ "maintain-ce-que-maintain-produit": [
+  "maintain-ce-que-maintain-produit-01.png"
+ ],
+ "maintain-equiper-le-harness": [
+  "maintain-equiper-le-harness-01.png",
+  "maintain-equiper-le-harness-02.png",
+  "maintain-equiper-le-harness-03.png",
+  "maintain-equiper-le-harness-04.png",
+  "maintain-equiper-le-harness-05.png",
+  "maintain-equiper-le-harness-06.png"
+ ],
+ "maintain-diagnostiquer-une-alerte": [
+  "maintain-diagnostiquer-une-alerte-01.png",
+  "maintain-diagnostiquer-une-alerte-02.png",
+  "maintain-diagnostiquer-une-alerte-03.png",
+  "maintain-diagnostiquer-une-alerte-04.png"
+ ],
+ "conclusion-felicitations": [],
+ "conclusion-remise-a-zero": [
+  "conclusion-remise-a-zero-01.png",
+  "conclusion-remise-a-zero-02.png",
+  "conclusion-remise-a-zero-03.png",
+  "conclusion-remise-a-zero-04.png"
+ ],
+ "conclusion-pour-aller-plus-loin": []
+}

@@ -16,7 +16,8 @@ La phase Test a laissé le simulateur, ses tests, son harness de vérification e
 
 Cette phase s’appuie sur trois plays. *AI in the PR review loop* confie à Claude la review de chaque pull request, selon les mêmes critères. *Hooks as approval gates* fait respecter les autorisations humaines avant une action. *CICD integration and deployment* applique ces limites aux agents exécutés dans les pipelines de livraison.
 
-La phase Deploy en détail
+![La phase Deploy en détail](img/deploy-ce-que-deploy-produit-01.png)  
+*La phase Deploy en détail*
 
 Le play *AI in the PR review loop* du playbook propose de confier à Claude la review de chaque pull request, selon des critères écrits à l’avance et appliqués à toutes, puis le traitement des remarques. L’Engineer peut ainsi concentrer son attention sur le comportement obtenu, le respect du plan et le risque du changement. La décision de merge reste humaine.
 
@@ -79,7 +80,7 @@ Prendre le rôle du Tech Lead pour préparer les critères de review dans `REVIE
 
 Prenez le rôle du Tech Lead pour préparer les critères de review. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche de build, mise à jour par le push de la fin de la phase Test.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/deploy-equiper-le-harness-01.png)
 
 02
 
@@ -91,7 +92,7 @@ Demandez à Claude de créer `REVIEW.md` à la racine du projet avec les critèr
 
 Claude doit créer le fichier avec ce contenu, sans modifier le reste du repository. Il indique ensuite le commit créé et le push de la branche.
 
-Claude Codeclaude.ai/code
+![Créez REVIEW.md .](img/deploy-equiper-le-harness-02.png)
 
 Relisez les trois passes et la liste de ce qui n’est pas signalé. Vérifiez que les documents cités, `spec.md`, `plan.md` et la skill `clean-code`, existent dans le repository, et que ce qui n’est pas signalé correspond à ce que `make test` vérifie déjà. Si un critère ne convient pas au simulateur, demandez à Claude de le corriger dans `REVIEW.md` et d’enregistrer la version corrigée.
 
@@ -115,7 +116,7 @@ Toujours dans le rôle du Platform Engineer, demandez à Claude d’installer le
 
 Claude doit indiquer le script créé et son branchement dans `.claude/settings.json`, puis décrire ce que le hook bloque. Il ne bloque que si une commande contient à la fois `deploy` et `production`, et seulement tant que `release-approval.txt` est absent de la racine. Claude cite le message que le refus affiche. Il indique enfin le commit créé et le push de la branche.
 
-Claude Codeclaude.ai/code
+![Créez la gate de production.](img/deploy-equiper-le-harness-03.png)
 
 05
 
@@ -127,7 +128,7 @@ Demandez à Claude un déploiement en production, puis le même vers `staging`. 
 
 Claude doit rapporter un refus sur la production, avec le message du hook qui nomme l’autorisation du Release Manager, puis l’exécution normale de la commande vers `staging`. La gate ne bloque que la production et laisse passer les autres environnements. Les deux commandes ne diffèrent que par la valeur de `ENV`.
 
-Claude Codeclaude.ai/code
+![Vérifiez la gate.](img/deploy-equiper-le-harness-04.png)
 
 06
 
@@ -145,7 +146,7 @@ Claude indique le fichier créé, le commit et le push. Ouvrez `.claude/skills/p
 
 Envoyez `/reload-skills` dans la session Claude Code pour recharger les skills du repository.
 
-Claude Codeclaude.ai/code
+![Lancez /reload-skills .](img/deploy-equiper-le-harness-05.png)
 
 08
 
@@ -153,7 +154,7 @@ Claude Codeclaude.ai/code
 
 Saisissez `/pr-review` dans la zone de message sans l’envoyer. Le menu de commandes doit proposer la skill `pr-review`.
 
-Claude Codeclaude.ai/code
+![Recherchez /pr-review .](img/deploy-equiper-le-harness-06.png)
 
 La suggestion `pr-review` confirme que Claude Code reconnaît la skill. Un `SKILL.md` mal formé n’apparaîtrait pas ici, et le défaut se découvrirait devant la pull request ouverte.
 
@@ -197,7 +198,7 @@ Prendre le rôle de l’Engineer et soumettre le build à la review de Claude, p
 
 Prenez le rôle de l’Engineer pour soumettre le build et en demander la review. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche de build. Elle n’a écrit ni le code ni les critères qu’elle va employer, et c’est ce qui sépare la review du travail relu.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/deploy-revoir-la-pull-request-01.png)
 
 02
 
@@ -209,7 +210,7 @@ Demandez à Claude d’ouvrir la pull request qui soumet la branche de build à 
 
 Claude lit les fichiers clés, lance les deux commandes pour en reprendre les sorties dans la description, puis donne le numéro de la pull request. Le build est soumis à la review dans GitHub. Il n’est pas encore accepté dans `main`.
 
-Claude Codeclaude.ai/code
+![Créez la pull request.](img/deploy-revoir-la-pull-request-02.png)
 
 03
 
@@ -223,7 +224,7 @@ Claude doit regrouper ses constats par passe et placer les Important d’abord, 
 
 Retenez un constat s’il désigne un fichier et un comportement vérifiables, s’il se rattache à une exigence de `spec.md`, à une étape de `plan.md` ou à une règle de la skill `clean-code`, et s’il ne répète pas ce que `make test` vérifie déjà. Écartez un constat qui demande de modifier un test.
 
-Claude Codeclaude.ai/code
+![Demandez la review.](img/deploy-revoir-la-pull-request-03.png)
 
 04
 
@@ -273,7 +274,7 @@ Prendre le rôle du Code Owner et décider du merge au vu du diff et des constat
 
 Cliquez sur le lien de la pull request fourni par Claude. Lisez le résumé, les commits et les sorties de `make test` et `make run`.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/4
+![Ouvrez la pull request dans GitHub.](img/deploy-accepter-le-build-01.png)
 
 02
 
@@ -281,7 +282,7 @@ GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/4
 
 Ouvrez l’onglet Files changed pour examiner le build tel qu’il est proposé. Le diff doit porter le code du simulateur et ses tests, `plan.md`, le harness des phases Test et Deploy et le correctif, sans qu’aucun fichier de tests ait été modifié ni supprimé. Vérifiez que les constats retenus sont corrigés, que le rover reste immobile devant un obstacle comme `spec.md` le demande, et que les écarts à `plan.md` sont expliqués. Repérez les réserves qui empêchent le merge pour les reprendre avec Claude.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/4/changes
+![Examinez les modifications.](img/deploy-accepter-le-build-02.png)
 
 03
 
@@ -291,7 +292,7 @@ Décidez si le build permet de préparer la livraison. Si vous voulez des correc
 
 Lorsque vous acceptez le build, revenez dans l’onglet Conversation. Descendez jusqu’au bouton Merge pull request, cliquez dessus, puis confirmez avec Confirm merge.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/4
+![Acceptez le build.](img/deploy-accepter-le-build-03.png)
 
 Le merge enregistre votre décision. Le simulateur, ses tests et son harness sont disponibles dans `main`. Le merge n’est pas une mise en service.
 
@@ -331,7 +332,7 @@ Prendre le rôle du Release Manager et réunir dans `release.md` la version cand
 
 Prenez le rôle du Release Manager pour préparer la livraison. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`, qui porte désormais le build mergé.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/deploy-preparer-la-livraison-01.png)
 
 02
 
@@ -353,7 +354,7 @@ Demandez à Claude le dossier qui relie le commit de merge aux vérifications di
 
 Claude doit reporter dans le fichier le commit de merge et les sorties des deux commandes, puis indiquer le commit créé et le push de la branche.
 
-Claude Codeclaude.ai/code
+![Préparez release.md .](img/deploy-preparer-la-livraison-02.png)
 
 04
 
@@ -361,7 +362,7 @@ Claude Codeclaude.ai/code
 
 Dans le panneau Fichiers, ouvrez `release.md` à la racine du repository. La version candidate doit être le commit de merge que GitHub affiche sur la pull request, et les sorties reprises celles que Claude vient d’obtenir. La cible de production et l’autorisation du Release Manager doivent rester marquées à définir, et aucune livraison ne doit être déclarée. Si une condition est présentée comme remplie sans preuve, demandez la correction à Claude, qui enregistrera la version corrigée. Le rollback doit y figurer comme répété sur `staging`, et la mise en production comme non autorisée à ce stade.
 
-Claude Codeclaude.ai/code
+![Relisez release.md .](img/deploy-preparer-la-livraison-03.png)
 
 05
 

@@ -14,7 +14,8 @@ La phase Deploy a mergé le build dans `main`, préparé la livraison et autoris
 
 Cette phase s’appuie sur un seul play. Le play *Closing the loop on metrics* du playbook recommande de déclencher ce travail sans attendre qu’une personne ouvre une session. Un script surveille une mesure et invoque Claude lorsqu’elle sort de ses bandes de contrôle. Claude examine le signal, établit un diagnostic et le conserve dans `intent.md`, dans les limites des actions autorisées. Le cycle reprend alors à la phase Plan.
 
-La phase Maintain en détail
+![La phase Maintain en détail](img/maintain-ce-que-maintain-produit-01.png)  
+*La phase Maintain en détail*
 
 | Cycle traditionnel | Cycle AI-native |
 | --- | --- |
@@ -61,7 +62,7 @@ Prendre le rôle du Platform Engineer et préparer une détection déterministe 
 
 Prenez le rôle du Platform Engineer pour préparer la détection. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`, qui porte le build mergé et le dossier de livraison.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/maintain-equiper-le-harness-01.png)
 
 02
 
@@ -83,7 +84,7 @@ Chaque ligne porte le numéro du lancement, ses échecs, ses tests exécutés et
 
 Jugez ensuite si cette mesure peut servir de référence. Les échecs habituels sont rares, donc un lancement qui sort de l’ordinaire se voit.
 
-Claude Codeclaude.ai/code
+![Examinez les mesures.](img/maintain-equiper-le-harness-02.png)
 
 04
 
@@ -95,7 +96,7 @@ Demandez à Claude de créer `bands.yaml` dans `ops/`, avec la réponse du scrip
 
 Claude doit créer le fichier avec ce contenu, sans toucher au reste du repository. Il indique ensuite le commit créé et le push de la branche.
 
-Claude Codeclaude.ai/code
+![Créez bands.yaml .](img/maintain-equiper-le-harness-03.png)
 
 05
 
@@ -107,7 +108,7 @@ Demandez à Claude de créer le détecteur, qui lit le relevé et donne le palie
 
 Claude doit montrer le détecteur, la sortie de `make test` et le push du commit. Vérifiez qu’aucun seuil n’est écrit dans le script, ils restent dans `bands.yaml`.
 
-Claude Codeclaude.ai/code
+![Créez le détecteur et ses tests.](img/maintain-equiper-le-harness-04.png)
 
 06
 
@@ -125,7 +126,7 @@ Claude indique le fichier créé, le commit et le push. Ouvrez `.claude/skills/d
 
 Envoyez `/reload-skills` dans la session Claude Code pour recharger les skills du repository.
 
-Claude Codeclaude.ai/code
+![Lancez /reload-skills .](img/maintain-equiper-le-harness-05.png)
 
 08
 
@@ -133,7 +134,7 @@ Claude Codeclaude.ai/code
 
 Saisissez `/diag` dans la zone de message sans l’envoyer. Le menu de commandes doit proposer la skill `diag`.
 
-Claude Codeclaude.ai/code
+![Recherchez /diag .](img/maintain-equiper-le-harness-06.png)
 
 La suggestion `diag` confirme que Claude Code reconnaît la skill. Un `SKILL.md` mal formé n’apparaîtrait pas ici, et le défaut se découvrirait devant l’alerte.
 
@@ -167,7 +168,7 @@ Prendre le rôle de l’Engineer et lancer le détecteur, puis obtenir de Claude
 
 Prenez le rôle de l’Engineer pour diagnostiquer l’alerte. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`. Elle n’a pas écrit la détection.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/maintain-diagnostiquer-une-alerte-01.png)
 
 02
 
@@ -179,7 +180,7 @@ Le détecteur décide seul du palier. Demandez à Claude de le lancer sur le rel
 
 Claude doit rendre la sortie du détecteur et son code de sortie. Sept échecs sur quarante-trois tests placent la mesure bien au-delà de trois écarts-types, donc au palier le plus élevé.
 
-Claude Codeclaude.ai/code
+![Produisez l’alerte.](img/maintain-diagnostiquer-une-alerte-02.png)
 
 03
 
@@ -193,7 +194,7 @@ Lancez la skill `diag` posée avec le harness, avec l’alerte ci-dessous.
 
 Claude doit rendre les faits, les hypothèses et les questions ouvertes en trois ensembles distincts, puis le résultat proposé. Aucun fichier n’est modifié.
 
-Claude Codeclaude.ai/code
+![Lancez /diag .](img/maintain-diagnostiquer-une-alerte-03.png)
 
 04
 
@@ -207,7 +208,7 @@ La skill `intent` présente le brouillon et attend votre validation. Vérifiez q
 
 Lorsqu’il vous convient, validez-le. La skill crée la branche de travail et y écrit `intent/alerte-tests/intent.md`, puis demande votre accord avant de créer la pull request.
 
-Claude Codeclaude.ai/code
+![Enregistrez l’intention.](img/maintain-diagnostiquer-une-alerte-04.png)
 
 05
 

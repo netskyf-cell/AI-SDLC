@@ -12,7 +12,8 @@ La phase Plan a produit `intent.md`, accepté par le Product Owner. La phase Des
 
 La phase Design repose sur un seul play, *Requirements and design*. Il réunit les exigences et la conception dans une même session avec Claude. Le Product Owner guide le travail et relit la proposition. La spécification doit être suffisamment précise pour que l’Engineer puisse préparer le plan de réalisation.
 
-La phase Design en détail
+![La phase Design en détail](img/design-ce-que-design-produit-01.png)  
+*La phase Design en détail*
 
 | Cycle traditionnel | Cycle AI-native |
 | --- | --- |
@@ -60,7 +61,7 @@ Prendre le rôle du Platform Engineer et préparer la skill `spec` pour guider l
 
 Prenez le rôle du Platform Engineer pour ajouter la skill `spec`. Cliquez sur Nouveau dans la barre latérale de Claude Code. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/design-equiper-le-harness-01.png)
 
 02
 
@@ -78,7 +79,7 @@ Cliquez sur les trois points en haut à droite de la session, puis sur Fichiers.
 
 Envoyez `/reload-skills` dans la session Claude Code pour recharger les skills du repository.
 
-Claude Codeclaude.ai/code
+![Lancez /reload-skills .](img/design-equiper-le-harness-02.png)
 
 04
 
@@ -86,7 +87,7 @@ Claude Codeclaude.ai/code
 
 Saisissez `/spec` dans la zone de message sans l’envoyer. Le menu de commandes doit proposer la skill `spec`.
 
-Claude Codeclaude.ai/code
+![Recherchez /spec .](img/design-equiper-le-harness-03.png)
 
 La suggestion `spec` confirme que Claude Code reconnaît la skill.
 
@@ -118,7 +119,7 @@ Prendre le rôle du Product Owner et demander à Claude de rédiger puis de pré
 
 Prenez le rôle du Product Owner pour demander la spécification à partir de l’intention acceptée. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/design-faire-ecrire-la-spec-01.png)
 
 02
 
@@ -130,7 +131,7 @@ Envoyez cette commande dans la même session pour demander à Claude de rédiger
 
 Claude doit créer une branche pour la phase Design avant d’y écrire `intent/mars-rover/spec.md`. Il indique le nom de la branche et le chemin du fichier. Le document présente les exigences, la conception proposée et les éventuels points à préciser avant son acceptation. La skill présente ensuite les réserves et les questions, puis pose la première. Allez lire le fichier avant d’y répondre.
 
-Claude Codeclaude.ai/code
+![Rédigez la spécification.](img/design-faire-ecrire-la-spec-02.png)
 
 03
 
@@ -138,7 +139,7 @@ Claude Codeclaude.ai/code
 
 Cliquez sur les trois points en haut à droite de la session, puis sur Fichiers.
 
-Claude Codeclaude.ai/code
+![Ouvrez la spécification.](img/design-faire-ecrire-la-spec-03.png)
 
 Dans le panneau Fichiers, saisissez `intent/` dans le filtre, puis cliquez sur `spec.md` dans `intent/mars-rover`.
 
@@ -150,7 +151,7 @@ Lisez `spec.md` dans le panneau Fichiers. Comparez-le à `intent.md`, disponible
 
 Vérifiez que les exigences couvrent le besoin et les contraintes de l’intention, que chaque scénario précise une situation de départ, une action et un résultat vérifiable, et que les choix de conception restent dans le périmètre du simulateur. Les réserves et les questions ouvertes doivent être compréhensibles.
 
-Claude Codeclaude.ai/code
+![Relisez la spécification.](img/design-faire-ecrire-la-spec-04.png)
 
 Repérez les écarts et les points à préciser pour les reprendre avec Claude.
 
@@ -172,7 +173,7 @@ Vérifiez que vos décisions figurent dans les passages modifiés.
 
 Toujours dans le rôle du Product Owner, vérifiez le contexte de génération de la spécification. Dans `spec.md`, descendez à la rubrique Contexte de génération. Vérifiez qu’elle contient votre demande, le chemin des skills utilisées et le commit Git correspondant à leur version. Si vous avez fait modifier la spécification, vérifiez aussi que les demandes de révision y figurent.
 
-Claude Codeclaude.ai/code
+![Vérifiez le contexte de génération.](img/design-faire-ecrire-la-spec-05.png)
 
 Si une information manque ou ne correspond pas à votre session, demandez à Claude de corriger cette rubrique avant d’ouvrir la pull request.
 
@@ -186,7 +187,7 @@ La skill demande si la spécification peut être proposée. Acceptez dans la con
 
 Claude fournit le lien de la pull request. La spécification est proposée à la relecture dans GitHub, elle n’est pas encore acceptée dans la branche `main`.
 
-Claude Codeclaude.ai/code
+![Proposez la spécification.](img/design-faire-ecrire-la-spec-06.png)
 
 Application en entreprise
 
@@ -216,7 +217,7 @@ Prendre le rôle du Product Owner et décider si la spécification et les décis
 
 Toujours dans le rôle du Product Owner, cliquez sur le lien de la pull request fourni par Claude. Lisez le résumé, les décisions prises et les points encore ouverts.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/3
+![Ouvrez la pull request dans GitHub.](img/design-soumettre-la-spec-01.png)
 
 02
 
@@ -224,7 +225,7 @@ GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/3
 
 Ouvrez l’onglet Files changed pour examiner la version de `spec.md` proposée dans la pull request. Vérifiez qu’elle reprend les corrections et les décisions prises avec Claude.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/3/changes
+![Examinez les modifications.](img/design-soumettre-la-spec-02.png)
 
 03
 
@@ -234,7 +235,7 @@ Décidez si la spécification permet de préparer la réalisation. Si vous deman
 
 Lorsque vous acceptez la spécification, revenez dans l’onglet Conversation. Descendez jusqu’au bouton Merge pull request et cliquez dessus, puis confirmez avec Confirm merge.
 
-GitHubgithub.com/VOTRE-COMPTE/mars-rover/pull/3
+![Acceptez la spécification.](img/design-soumettre-la-spec-03.png)
 
 Le merge enregistre votre acceptation. `intent/mars-rover/spec.md` est disponible dans la branche `main`, avec l’intention acceptée. Vous utiliserez ces deux documents dans la phase Build pour préparer le plan de réalisation.
 

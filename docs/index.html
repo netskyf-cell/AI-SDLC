@@ -1,0 +1,387 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dojo AI-Native SDLC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@112,700;125,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+/* Layout: home = loop dial + module ledger; lesson = sticky loop sidebar + one reading column. */
+:root {
+  --ground: #f4f2f9;      /* lavender-tinted paper */
+  --panel: #ffffff;
+  --ink: #1d1533;         /* deep violet ink, matches the Thiga diagrams */
+  --ink-soft: #5d5575;
+  --rule: #ddd7ea;
+  --signal: #5b2eff;      /* the loop's violet */
+  --signal-soft: #ebe5ff;
+  --gate: #b5470f;        /* human decision points only */
+  --f-display: "Anybody", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #110c1d; --panel: #1b1429; --ink: #ece7f8; --ink-soft: #a9a0c2;
+    --rule: #33294a; --signal: #a28bff; --signal-soft: #2a2050; --gate: #f08a4b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #110c1d; --panel: #1b1429; --ink: #ece7f8; --ink-soft: #a9a0c2;
+  --rule: #33294a; --signal: #a28bff; --signal-soft: #2a2050; --gate: #f08a4b;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font: 400 17px/1.65 var(--f-body);
+  padding-inline: 16px;
+}
+a { color: var(--signal); text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 3px; }
+code { font: 500 .88em var(--f-mono); background: var(--signal-soft); padding: .1em .35em; border-radius: 4px; }
+.mono { font-family: var(--f-mono); }
+.label { font: 500 12px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* ---------- top bar ---------- */
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  display: flex; align-items: center; gap: 16px;
+  max-width: 1240px; margin-inline: auto; padding-block: 14px;
+  background: var(--ground); border-bottom: 1px solid var(--rule);
+}
+.brand { font: 800 15px/1 var(--f-display); font-stretch: 125%; letter-spacing: .02em; text-transform: uppercase; color: var(--ink); text-decoration: none; }
+.brand span { color: var(--signal); }
+.bar .spacer { flex: 1; }
+.btn {
+  font: 500 14px/1 var(--f-body); color: var(--ink); background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 9px 16px; cursor: pointer; text-decoration: none;
+}
+.btn:hover { border-color: var(--signal); }
+.btn.primary { background: var(--signal); border-color: var(--signal); color: var(--panel); }
+#tocToggle { display: none; }
+
+/* ---------- home ---------- */
+.home { max-width: 1240px; margin-inline: auto; padding-block: 48px 80px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero h1 {
+  font: 800 clamp(40px, 6.4vw, 84px)/.92 var(--f-display); font-stretch: 125%;
+  text-transform: uppercase; letter-spacing: -.01em; margin: 14px 0 22px; text-wrap: balance;
+}
+.hero h1 em { font-style: normal; color: var(--signal); }
+.hero p { max-width: 58ch; color: var(--ink-soft); margin: 0 0 14px; }
+.hero .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+
+.dial { width: 100%; max-width: 520px; justify-self: center; }
+.dial svg { width: 100%; height: auto; display: block; overflow: visible; }
+.arc { fill: none; stroke: var(--rule); stroke-width: 26; cursor: pointer; transition: stroke .2s; }
+.arc.done { stroke: var(--signal-soft); }
+.arc.on, .seg:hover .arc, .seg:focus-visible .arc { stroke: var(--signal); }
+.seg { outline: none; }
+.seg:focus-visible .arc { stroke-width: 32; }
+.arrow { fill: var(--ink-soft); }
+.seg-name { font: 800 17px var(--f-display); font-stretch: 112%; text-transform: uppercase; fill: var(--ink); }
+.seg-art { font: 400 12.5px var(--f-mono); fill: var(--ink-soft); }
+.hub-top { font: 500 11px var(--f-mono); letter-spacing: .1em; text-transform: uppercase; fill: var(--ink-soft); }
+.hub-main { font: 800 26px var(--f-display); font-stretch: 125%; text-transform: uppercase; fill: var(--ink); }
+.hub-sub { font: 400 13px var(--f-body); fill: var(--ink-soft); }
+@media (prefers-reduced-motion: no-preference) {
+  .dial.intro .arc { animation: draw .7s cubic-bezier(.3,.7,.2,1) both; }
+  @keyframes draw { from { stroke-dasharray: 0 999; } to { stroke-dasharray: 999 0; } }
+}
+
+.ledger { margin-top: 64px; border-top: 2px solid var(--ink); }
+.row {
+  display: grid; grid-template-columns: 56px minmax(0, 1fr) minmax(0, 1.3fr) 150px; gap: 20px; align-items: baseline;
+  padding-block: 20px; border-bottom: 1px solid var(--rule); color: inherit; text-decoration: none;
+}
+.row:hover .row-name { color: var(--signal); }
+.row-num { font: 500 13px var(--f-mono); color: var(--ink-soft); }
+.row-name { font: 800 26px/1 var(--f-display); font-stretch: 125%; text-transform: uppercase; transition: color .15s; }
+.row-blurb { color: var(--ink-soft); }
+.row-meta { font: 400 13px var(--f-mono); color: var(--ink-soft); text-align: right; font-variant-numeric: tabular-nums; }
+.row-meta b { color: var(--signal); font-weight: 500; }
+
+.brief { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; margin-top: 64px; }
+.brief h2 { font: 800 20px var(--f-display); font-stretch: 125%; text-transform: uppercase; margin: 0 0 10px; }
+.brief p { margin: 0; color: var(--ink-soft); max-width: 60ch; }
+.credit { margin-top: 64px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-soft); }
+
+/* ---------- lesson ---------- */
+.reader { max-width: 1240px; margin-inline: auto; display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 56px; padding-block: 32px 80px; }
+.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 72px); align-self: start; max-height: calc(100vh - 96px); overflow-y: auto; padding-right: 6px; }
+.toc .dial { max-width: 170px; margin: 0 0 18px; justify-self: start; }
+.toc .seg-name, .toc .seg-art, .toc .hub-sub, .toc .hub-top { display: none; }
+.toc .hub-main { font-size: 44px; }
+.toc-mod { border-top: 1px solid var(--rule); }
+.toc-mod > button {
+  width: 100%; display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
+  background: none; border: 0; padding: 12px 0; cursor: pointer; color: var(--ink); text-align: left;
+  font: 800 14px var(--f-display); font-stretch: 112%; text-transform: uppercase;
+}
+.toc-mod > button .label { text-transform: none; letter-spacing: 0; }
+.toc-mod.current > button { color: var(--signal); }
+.toc ol { list-style: none; margin: 0 0 12px; padding: 0; }
+.toc li a {
+  display: flex; gap: 10px; padding: 6px 8px; border-radius: 6px; font-size: 14.5px; line-height: 1.35;
+  color: var(--ink-soft); text-decoration: none;
+}
+.toc li a:hover { background: var(--signal-soft); color: var(--ink); }
+.toc li a[aria-current="page"] { background: var(--signal-soft); color: var(--ink); font-weight: 600; }
+.tick { flex: none; width: 14px; font: 500 12px/1.6 var(--f-mono); color: var(--signal); }
+
+article { min-width: 0; max-width: 760px; }
+.crumb { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+article h1 {
+  font: 800 clamp(30px, 4.2vw, 50px)/1 var(--f-display); font-stretch: 125%;
+  text-transform: uppercase; margin: 12px 0 34px; text-wrap: balance;
+}
+.body h2 { font: 800 24px/1.1 var(--f-display); font-stretch: 112%; text-transform: uppercase; margin: 52px 0 16px; text-wrap: balance; }
+.body h3 { font: 600 19px/1.35 var(--f-body); margin: 36px 0 10px; display: flex; gap: 12px; align-items: baseline; text-wrap: balance; }
+.body h3 .step { flex: none; font: 500 13px var(--f-mono); color: var(--panel); background: var(--signal); border-radius: 999px; padding: 3px 9px; }
+.body p, .body li { max-width: 68ch; }
+.body ol, .body ul { padding-left: 22px; }
+.body li { margin-block: 6px; }
+.body .eyebrow { font: 500 12px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--signal); margin: 36px 0 10px; }
+.body .defs { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 6px 20px; margin: 0 0 28px; }
+.body .defs p { font-size: 15.5px; margin-block: 12px; }
+.body .gate { border-left: 3px solid var(--gate); padding-left: 16px; }
+.body figure { margin: 26px 0 30px; }
+.body figure button { display: block; width: 100%; padding: 0; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: #fff; cursor: zoom-in; }
+.body figure img { display: block; width: 100%; height: auto; }
+.body figcaption { font-size: 14px; color: var(--ink-soft); margin-top: 8px; }
+.tablewrap { overflow-x: auto; margin: 22px 0; }
+.body table { border-collapse: collapse; font-size: 15px; min-width: 520px; }
+.body th, .body td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+.body th { font: 500 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 64px; }
+.pager a { display: block; padding: 16px 18px; border: 1px solid var(--rule); border-radius: 10px; text-decoration: none; color: var(--ink); background: var(--panel); min-width: 0; }
+.pager a:hover { border-color: var(--signal); }
+.pager a.next { text-align: right; grid-column: 2; }
+.pager strong { display: block; font-weight: 600; margin-top: 4px; }
+
+/* ---------- lightbox ---------- */
+.lightbox { position: fixed; inset: 0; z-index: 50; background: color-mix(in srgb, var(--ground) 94%, transparent); overflow: auto; padding: 60px 16px 24px; }
+.lightbox img { display: block; margin: 0 auto; max-width: none; border-radius: 8px; border: 1px solid var(--rule); }
+.lightbox .close { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 16px; }
+
+.status { max-width: 640px; margin: 80px auto; }
+
+@media (max-width: 900px) {
+  .hero, .brief { grid-template-columns: minmax(0, 1fr); }
+  .dial { max-width: 420px; }
+  .row { grid-template-columns: 40px minmax(0, 1fr); }
+  .row-blurb { grid-column: 2; }
+  .row-meta { grid-column: 2; text-align: left; }
+  .reader { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  #tocToggle { display: inline-block; }
+  .toc { position: static; max-height: none; padding: 0 0 20px; border-bottom: 1px solid var(--rule); margin-bottom: 20px; }
+  .reader:not(.toc-open) .toc { display: none; }
+  body { font-size: 16.5px; }
+}
+</style>
+
+<header class="bar">
+  <a class="brand" href="#">Dojo <span>AI-Native</span> SDLC</a>
+  <span class="spacer"></span>
+  <button class="btn" id="tocToggle" type="button" aria-expanded="false" hidden>Sommaire</button>
+</header>
+<div id="app"><p class="status label">Chargement du dojo…</p></div>
+
+<script>
+const PHASES = {
+  plan: "intent.md", design: "spec.md", build: "plan.md",
+  test: "code + tests", deploy: "pull request", maintain: "écart mesuré",
+};
+const app = document.getElementById("app");
+const tocToggle = document.getElementById("tocToggle");
+let modules = [], lessons = [];
+
+const store = {
+  get() { try { return new Set(JSON.parse(localStorage.getItem("dojo-read") || "[]")); } catch { return new Set(); } },
+  add(id) { try { const s = this.get(); s.add(id); localStorage.setItem("dojo-read", JSON.stringify([...s])); } catch {} },
+};
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+/* The six-phase loop: each arc is one module, arrows run clockwise. */
+function dial(current, { intro = false } = {}) {
+  const ids = Object.keys(PHASES), read = store.get();
+  const cx = 260, cy = 260, r = 150, gap = 7;
+  const pt = (a, rad) => [cx + rad * Math.cos(a), cy + rad * Math.sin(a)];
+  const segs = ids.map((id, i) => {
+    const mod = modules.find(m => m.id === id);
+    const a0 = (-90 + i * 60 + gap / 2) * Math.PI / 180, a1 = (-90 + (i + 1) * 60 - gap / 2) * Math.PI / 180;
+    const [x0, y0] = pt(a0, r), [x1, y1] = pt(a1, r);
+    const mid = (a0 + a1) / 2, [lx, ly] = pt(mid, r + 48);
+    const anchor = Math.abs(Math.cos(mid)) < .2 ? "middle" : Math.cos(mid) > 0 ? "start" : "end";
+    const [ax, ay] = pt(a1 + .02, r), t = a1 + Math.PI / 2;
+    const head = [[ax + 9 * Math.cos(t), ay + 9 * Math.sin(t)], [ax + 15 * Math.cos(a1), ay + 15 * Math.sin(a1)], [ax - 15 * Math.cos(a1), ay - 15 * Math.sin(a1)]];
+    const done = mod.lessons.every(l => read.has(l.id));
+    return `<a class="seg" href="#${mod.lessons[0].id}" aria-label="Module ${mod.number} · ${mod.title}">
+      <path class="arc ${id === current ? "on" : done ? "done" : ""}" style="animation-delay:${i * 90}ms" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}"/>
+      <polygon class="arrow" points="${head.map(p => p.join(",")).join(" ")}"/>
+      <text class="seg-name" x="${lx}" y="${ly - 2}" text-anchor="${anchor}">${mod.number} ${mod.title}</text>
+      <text class="seg-art" x="${lx}" y="${ly + 17}" text-anchor="${anchor}">→ ${PHASES[id]}</text>
+    </a>`;
+  }).join("");
+  const cur = modules.find(m => m.id === current);
+  const hub = cur && PHASES[current]
+    ? `<text class="hub-top" x="${cx}" y="${cy - 22}" text-anchor="middle">Module ${cur.number}</text>
+       <text class="hub-main" x="${cx}" y="${cy + 10}" text-anchor="middle">${cur.title}</text>
+       <text class="hub-sub" x="${cx}" y="${cy + 34}" text-anchor="middle">produit ${PHASES[current]}</text>`
+    : `<text class="hub-top" x="${cx}" y="${cy - 22}" text-anchor="middle">Le cycle</text>
+       <text class="hub-main" x="${cx}" y="${cy + 10}" text-anchor="middle">Mars Rover</text>
+       <text class="hub-sub" x="${cx}" y="${cy + 34}" text-anchor="middle">6 phases, 1 boucle</text>`;
+  return `<div class="dial${intro ? " intro" : ""}"><svg viewBox="0 0 520 520" role="img" aria-label="Cycle AI-Native SDLC en six phases">${segs}${hub}</svg></div>`;
+}
+
+function renderHome() {
+  const read = store.get();
+  const next = lessons.find(l => !read.has(l.id)) || lessons[0];
+  const started = read.size > 0;
+  const intro = modules[0].lessons[0];
+  const tmp = document.createElement("div"); tmp.innerHTML = intro.html;
+  const paras = [...tmp.querySelectorAll("p")].map(p => p.textContent);
+  const build = paras.find(t => t.startsWith("Mars Rover")) || "";
+  const rows = modules.filter(m => m.number).map(m => {
+    const n = m.lessons.filter(l => read.has(l.id)).length;
+    return `<a class="row" href="#${m.lessons[0].id}">
+      <span class="row-num">${m.number.padStart(2, "0")}</span>
+      <span class="row-name">${esc(m.title)}</span>
+      <span class="row-blurb">${esc(m.blurb)}</span>
+      <span class="row-meta">${PHASES[m.id] ? `→ ${PHASES[m.id]}<br>` : ""}<b>${n}</b>/${m.lessons.length} leçons lues</span>
+    </a>`;
+  }).join("");
+  app.innerHTML = `<main class="home">
+    <section class="hero">
+      <div>
+        <p class="label">Dojo Thiga · 7 modules · ${lessons.length} leçons · en français</p>
+        <h1>AI-Native SDLC <em>from the trenches</em></h1>
+        <p>Développez un produit avec Claude Code en suivant le playbook AI-Native SDLC d’Anthropic. Chaque phase produit un fichier que la suivante lit, et un humain décide à chaque porte.</p>
+        <p>Vous travaillez depuis un navigateur, sans rien installer.</p>
+        <div class="actions">
+          <a class="btn primary" href="#${next.id}">${started ? "Reprendre" : "Commencer le dojo"}</a>
+          <a class="btn" href="#${intro.id}">Lire l’introduction</a>
+        </div>
+      </div>
+      ${dial(null, { intro: true })}
+    </section>
+    <section class="ledger" aria-label="Modules">${rows}</section>
+    <section class="brief">
+      <div><h2>Ce que vous allez construire</h2><p>${esc(build)}</p></div>
+      <div><h2>Prérequis</h2><p>Un navigateur web et un abonnement Anthropic. Votre progression est enregistrée dans ce navigateur uniquement.</p></div>
+    </section>
+    <p class="credit">Contenu : « AI-Native SDLC from the trenches » par Thiga, licence MIT (<a href="https://github.com/thiga-co/dojo-ai-native-sdlc-from-the-tranches" target="_blank" rel="noopener">source</a>). Adapté du <a href="https://claude.com/blog/the-ai-native-sdlc-playbook" target="_blank" rel="noopener">playbook AI-Native SDLC d’Anthropic</a>.</p>
+  </main>`;
+  tocToggle.hidden = true;
+}
+
+/* Turn the converted markup's plain labels into structure. */
+function enhance(root) {
+  for (const p of [...root.querySelectorAll("p")]) {
+    const t = p.textContent.trim();
+    if (/^\d{2}$/.test(t) && p.nextElementSibling?.tagName === "H3") {
+      p.nextElementSibling.insertAdjacentHTML("afterbegin", `<span class="step">${t}</span>`);
+      p.remove();
+    } else if (/^(Définitions? à connaître|Passons à la pratique|Objectif|Pour aller plus loin|Application en entreprise)/.test(t) && t.length < 60) {
+      p.className = "eyebrow";
+      if (/^Définition/.test(t)) {
+        const box = document.createElement("div"); box.className = "defs";
+        let n = p.nextElementSibling;
+        while (n && n.tagName === "P" && n.firstElementChild?.tagName === "STRONG" && n.textContent.trim().startsWith(n.firstElementChild.textContent)) {
+          const m = n.nextElementSibling; box.append(n); n = m;
+        }
+        if (box.childElementCount) p.after(box);
+      }
+    }
+  }
+  for (const img of root.querySelectorAll("p > img")) {
+    const p = img.parentElement, cap = p.querySelector("em")?.textContent;
+    const fig = document.createElement("figure");
+    fig.innerHTML = `<button type="button" aria-label="Agrandir : ${esc(img.alt)}"></button>${cap ? `<figcaption>${esc(cap)}</figcaption>` : ""}`;
+    img.loading = "lazy";
+    fig.firstElementChild.append(img);
+    p.replaceWith(fig);
+  }
+  for (const t of root.querySelectorAll("table")) { const w = document.createElement("div"); w.className = "tablewrap"; t.before(w); w.append(t); }
+  for (const a of root.querySelectorAll("a[href^='http']")) { a.target = "_blank"; a.rel = "noopener"; }
+  for (const a of root.querySelectorAll("a[href^='#']")) {
+    const id = a.getAttribute("href").slice(1);
+    if (!lessons.some(l => l.id === id)) { const l = lessons.find(l => id.startsWith(l.id)); a.href = l ? `#${l.id}` : "#"; }
+  }
+}
+
+function renderLesson(lesson) {
+  store.add(lesson.id);
+  const read = store.get();
+  const mod = modules.find(m => m.lessons.includes(lesson));
+  const i = lessons.indexOf(lesson), prev = lessons[i - 1], next = lessons[i + 1];
+  const toc = modules.map(m => `<div class="toc-mod${m === mod ? " current" : ""}">
+      <button type="button" aria-expanded="${m === mod}">${esc(m.title)}<span class="label">${m.number ? `M${m.number}` : ""}</span></button>
+      <ol ${m === mod ? "" : "hidden"}>${m.lessons.map(l => `<li><a href="#${l.id}" ${l === lesson ? 'aria-current="page"' : ""}><span class="tick">${read.has(l.id) ? "✓" : ""}</span>${esc(l.title)}</a></li>`).join("")}</ol>
+    </div>`).join("");
+  const where = mod.number ? `Module ${mod.number} · ${mod.title}` : mod.title;
+  app.innerHTML = `<div class="reader">
+    <nav class="toc" aria-label="Sommaire">${dial(mod.id)}${toc}</nav>
+    <article>
+      <div class="crumb"><span class="label">${esc(where)}</span><span class="label">Leçon ${mod.lessons.indexOf(lesson) + 1}/${mod.lessons.length}</span></div>
+      <h1>${esc(lesson.title === "Introduction" && mod.number ? `${mod.title} : introduction` : lesson.title)}</h1>
+      <div class="body">${lesson.html}</div>
+      <nav class="pager" aria-label="Leçons">
+        ${prev ? `<a class="prev" href="#${prev.id}"><span class="label">← Précédente</span><strong>${esc(prev.title)}</strong></a>` : ""}
+        ${next ? `<a class="next" href="#${next.id}"><span class="label">Suivante →</span><strong>${esc(next.title)}</strong></a>` : ""}
+      </nav>
+    </article>
+  </div>`;
+  enhance(app.querySelector(".body"));
+  app.querySelectorAll(".toc-mod > button").forEach(b => b.addEventListener("click", () => {
+    const ol = b.nextElementSibling; ol.hidden = !ol.hidden; b.setAttribute("aria-expanded", String(!ol.hidden));
+  }));
+  tocToggle.hidden = false; tocToggle.setAttribute("aria-expanded", "false");
+}
+
+function openLightbox(img) {
+  const box = document.createElement("div");
+  box.className = "lightbox"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", img.alt);
+  const big = new Image(); big.src = img.src; big.alt = img.alt;
+  big.style.width = Math.round(img.naturalWidth / 2) + "px";
+  box.innerHTML = `<button class="btn close" type="button">Fermer</button>`;
+  box.append(big); document.body.append(box);
+  const close = () => { box.remove(); document.removeEventListener("keydown", onKey); img.closest("button")?.focus(); };
+  const onKey = e => { if (e.key === "Escape") close(); };
+  box.addEventListener("click", e => { if (e.target !== big) close(); });
+  document.addEventListener("keydown", onKey);
+  box.querySelector(".close").focus();
+}
+
+function route() {
+  const id = location.hash.slice(1);
+  const lesson = lessons.find(l => l.id === id);
+  lesson ? renderLesson(lesson) : renderHome();
+  window.scrollTo(0, 0);
+}
+
+app.addEventListener("click", e => {
+  const fig = e.target.closest("figure button");
+  if (fig) openLightbox(fig.querySelector("img"));
+});
+tocToggle.addEventListener("click", () => {
+  const r = app.querySelector(".reader"); if (!r) return;
+  const open = r.classList.toggle("toc-open");
+  tocToggle.setAttribute("aria-expanded", String(open));
+});
+
+fetch("dojo/lessons.json")
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(data => {
+    modules = data; lessons = data.flatMap(m => m.lessons);
+    window.addEventListener("hashchange", route);
+    route();
+  })
+  .catch(() => {
+    app.innerHTML = `<div class="status"><p class="label">Contenu introuvable</p><p>Le fichier <code>dojo/lessons.json</code> n’a pas pu être chargé. Ouvrez cette page depuis un serveur web (par exemple <code>python3 -m http.server</code> dans le dossier <code>docs</code>), pas directement depuis le disque.</p></div>`;
+  });
+</script>

@@ -8,7 +8,8 @@ La phase Design a produit `spec.md`, accepté par le Product Owner. La phase Bui
 
 Cette phase s’appuie sur quatre plays. *Claude Code plan mode as the default starting point* fait précéder le code d’un plan écrit. *The CLAUDE.md* donne à Claude les repères du projet. *Skills as institutional knowledge* lui donne les méthodes de l’organisation. *Parallel sessions and subagents* permet à un Engineer de piloter plusieurs travaux à la fois.
 
-La phase Build en détail
+![La phase Build en détail](img/build-ce-que-build-produit-01.png)  
+*La phase Build en détail*
 
 Le play *Claude Code plan mode as the default starting point* du playbook recommande de commencer par un plan de réalisation. Claude lit l’intention, la spécification et le repository. Il propose les fichiers à modifier, l’ordre du travail et les tests qui permettront de vérifier le résultat. L’Engineer examine cette stratégie avant d’autoriser la réalisation. Le plan accepté est conservé dans `plan.md` pour guider le travail et sa review.
 
@@ -66,7 +67,7 @@ Prendre le rôle de l’Engineer pour préparer `CLAUDE.md`, puis celui du Platf
 
 Prenez le rôle de l’Engineer pour préparer les instructions du projet. Cliquez sur Nouveau dans la barre latérale de Claude Code. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/build-equiper-le-harness-01.png)
 
 02
 
@@ -82,7 +83,7 @@ Le contenu dépend des fichiers présents. À ce stade, Claude dispose de l’in
 
 Le résultat attendu est un fichier `CLAUDE.md` à la racine du repository.
 
-Claude Codeclaude.ai/code
+![Initialisez le fichier CLAUDE.md .](img/build-equiper-le-harness-02.png)
 
 03
 
@@ -90,7 +91,7 @@ Claude Codeclaude.ai/code
 
 Cliquez sur les trois points en haut à droite de la session, puis sur Fichiers.
 
-Claude Codeclaude.ai/code
+![Ouvrez le fichier CLAUDE.md .](img/build-equiper-le-harness-03.png)
 
 Dans le panneau Fichiers, cliquez sur `CLAUDE.md` à la racine du repository.
 
@@ -100,7 +101,7 @@ Dans le panneau Fichiers, cliquez sur `CLAUDE.md` à la racine du repository.
 
 Lisez `CLAUDE.md` dans le panneau Fichiers. Vérifiez qu’il décrit les documents et les skills du repository, que ses conventions correspondent à `spec.md`, et qu’aucune instruction ne contredit l’intention ou la spécification acceptées. Les commandes de construction et de test sont absentes ou signalées à compléter, le repository ne contenant pas encore de code.
 
-Claude Codeclaude.ai/code
+![Relisez les instructions de CLAUDE.md .](img/build-equiper-le-harness-04.png)
 
 Dans le fichier généré ici, Claude décrit les documents et les skills présents. Il ne précise pas encore les commandes de build ou de test. Cette absence de commandes est cohérente avec l’état du repository.
 
@@ -132,7 +133,7 @@ Ouvrez `.claude/skills/clean-code/SKILL.md` dans le panneau Fichiers. Vérifiez 
 
 Envoyez `/reload-skills` dans la session Claude Code pour recharger les skills du repository.
 
-Claude Codeclaude.ai/code
+![Lancez /reload-skills .](img/build-equiper-le-harness-05.png)
 
 08
 
@@ -140,7 +141,7 @@ Claude Codeclaude.ai/code
 
 Saisissez `/clean-code` dans la zone de message sans l’envoyer. Le menu de commandes doit proposer la skill `clean-code`.
 
-Claude Codeclaude.ai/code
+![Recherchez /clean-code .](img/build-equiper-le-harness-06.png)
 
 La suggestion `clean-code` confirme que Claude Code reconnaît la skill.
 
@@ -176,7 +177,7 @@ Prendre le rôle de l’Engineer et demander à Claude de préciser le plan du s
 
 Reprenez le rôle de l’Engineer pour demander le plan à partir de la version acceptée de `spec.md`. Cliquez sur Nouveau dans la barre latérale. La nouvelle session doit utiliser l’environnement `Mars Rover`, le repository `mars-rover` et la branche `main`.
 
-Claude Codeclaude.ai/code
+![Ouvrez une nouvelle session Claude Code.](img/build-faire-ecrire-le-plan-01.png)
 
 02
 
@@ -194,7 +195,7 @@ Claude indique le nom de la branche créée.
 
 Cliquez sur Auto sous la zone de message de Claude Code. Choisissez Plan dans le menu.
 
-Claude Codeclaude.ai/code
+![Activez le mode Plan.](img/build-faire-ecrire-le-plan-02.png)
 
 Le sélecteur doit afficher Plan. Dans ce mode, Claude explore le repository et prépare un plan sans modifier le code source.
 
@@ -212,7 +213,7 @@ Si la réponse figure déjà dans `spec.md`, rappelez la décision à Claude. Si
 
 Pour chaque question, choisissez la réponse qui correspond à la décision retenue. Utilisez Autre pour la préciser avec vos mots. Cliquez sur Suivant pour passer à la question suivante.
 
-Claude Codeclaude.ai/code
+![Demandez le plan de réalisation.](img/build-faire-ecrire-le-plan-03.png)
 
 Cliquez sur Envoyer après la dernière réponse. Claude peut poursuivre la préparation du plan. Répondre à ses questions n’autorise pas encore l’implémentation.
 
@@ -224,7 +225,7 @@ Comparez le plan à la version acceptée de `spec.md`.
 
 Vérifiez que les tâches couvrent les exigences et respectent les décisions de `spec.md`, que le rôle des fichiers, l’ordre des tâches et leurs dépendances sont clairs, et que les tests précisent les comportements vérifiés et les résultats attendus. Les choix encore ouverts et les points à corriger doivent rester identifiables.
 
-Claude Codeclaude.ai/code
+![Relisez le plan.](img/build-faire-ecrire-le-plan-04.png)
 
 06
 
@@ -270,7 +271,7 @@ Prendre le rôle de l’Engineer et piloter la réalisation du plan accepté pou
 
 Toujours dans le rôle de l’Engineer, cliquez sur Mode accepter et auto lorsque le plan vous convient. Vous autorisez Claude à exécuter le plan.
 
-Claude Codeclaude.ai/code
+![Acceptez le plan.](img/build-implementer-01.png)
 
 02
 
@@ -278,7 +279,7 @@ Claude Codeclaude.ai/code
 
 Lisez le compte rendu de Claude, puis les commandes qu’il a exécutées et leurs sorties. Comparez-les aux exigences de `spec.md`. Repérez les fonctionnalités réalisées, vérifiez que les tests exécutés couvrent les comportements attendus en lisant leurs résultats dans les sorties et pas seulement dans le résumé, et relevez les écarts à `plan.md` ainsi que les choix encore ouverts.
 
-Claude Codeclaude.ai/code
+![Examinez le résultat.](img/build-implementer-02.png)
 
 03
 

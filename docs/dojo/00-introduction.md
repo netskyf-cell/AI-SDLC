@@ -14,7 +14,8 @@ Le playbook propose un cycle AI-native qui conserve les objectifs de contrôle e
 
 Vous commencerez par discuter du besoin avec Claude Code. Il le formalisera dans un document que vous relirez et corrigerez. Une fois le besoin accepté, il proposera une conception. Vous la relirez et la validerez avant qu’il prépare le plan de réalisation. Vous examinerez et accepterez ce plan avant de lui confier le développement. L’agent s’appuiera sur ces décisions pour construire le produit et exécuter les contrôles prévus.
 
-Le cycle AI-Native SDLC d’Anthropic en détail
+![Le cycle AI-Native SDLC d’Anthropic en détail](img/course-01.png)  
+*Le cycle AI-Native SDLC d’Anthropic en détail*
 
 Vous guiderez le travail de l’agent et déciderez si les résultats permettent de poursuivre. Chaque phase se termine par un artefact enregistré dans le repository, `intent.md`, `spec.md`, `plan.md`, le code et ses tests, la pull request avec ses constats de review, puis l’intention écrite à partir d’un écart mesuré. La phase suivante commence par le lire. Les premières phases produisent des fichiers Markdown, qu’un Product Owner et un agent peuvent lire et modifier ensemble, puis le code prend le relais. La chaîne des commits constitue la piste d’audit, qui a demandé quoi, ce que l’agent a produit et qui l’a approuvé. Une intention acceptée déclenche la conception, une spécification approuvée déclenche le plan, une pull request mergée déclenche le pipeline, et une bande de contrôle franchie écrit la prochaine intention. Au début, chaque étape est lancée à la main. La cible est une boucle où chaque artefact accepté déclenche la suivante, l’attention humaine se concentrant aux points de décision. Les humains restent responsables de chaque décision qui demande un jugement.
 
